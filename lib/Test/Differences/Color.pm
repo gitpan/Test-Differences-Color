@@ -13,11 +13,11 @@ Test::Differences::Color - colorize output of Test::Differences
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-use version; our $VERSION = qv('0.01');
+use version; our $VERSION = qv('0.02');
 
 =head1 SYNOPSIS
 
@@ -60,8 +60,16 @@ sub eq_or_diff {
             }
 
             foreach my $line (@lines) {
-                if ($line =~ /# \*/) {
-                    print $fh RED BOLD "$line\n";
+                my $match_start = $line =~ /^# \*/;
+                my $match_end   = $line =~ /\*$/;
+                if ($match_start && $match_end) {
+                    print $fh ON_RED "$line\n";
+                }
+                elsif ($match_start) {
+                    print $fh ON_BLUE "$line\n";
+                }
+                elsif ($match_end) {
+                    print $fh ON_GREEN "$line\n";
                 }
                 else {
                     print $fh "$line\n";
