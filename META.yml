@@ -1,0 +1,24 @@
+---
+name: Test-Differences-Color
+version: v0.01
+author:
+  - 'Alec Chen <alec@cpan.org>'
+abstract: colorize output of Test::Differences
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+build_requires:
+  Exporter: 5.63
+  Sub::Override: 0.08
+  Term::ANSIColor: 1.12
+  Test::Differences: 0.4801
+  Test::More: 0.8
+  version: 0.76
+provides:
+  Test::Differences::Color:
+    file: lib/Test/Differences/Color.pm
+    version: v0.01
+generated_by: Module::Build version 0.2808
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
