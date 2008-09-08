@@ -1,5 +1,8 @@
 Revision history for Test-Differences-Color
 
+0.03    2008年09月08日 18時39分12秒 CST
+        RESET before new line character
+
 0.02    2008年09月07日 11時06分21秒 CST
         three diff colors were seperated
         ON_RED, ON_BLUE, ON_GREEN

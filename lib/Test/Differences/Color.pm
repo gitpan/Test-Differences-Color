@@ -2,22 +2,22 @@ package Test::Differences::Color;
 
 use Sub::Override;
 use Term::ANSIColor qw(:constants);
-$Term::ANSIColor::AUTORESET = 1;
+#$Term::ANSIColor::AUTORESET = 1;
 
 use Exporter 'import';
 our @EXPORT = qw(eq_or_diff);
 
 =head1 NAME
 
-Test::Differences::Color - colorize output of Test::Differences
+Test::Differences::Color - colorize the result of Test::Differences
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-use version; our $VERSION = qv('0.02');
+use version; our $VERSION = qv('0.03');
 
 =head1 SYNOPSIS
 
@@ -62,25 +62,27 @@ sub eq_or_diff {
             foreach my $line (@lines) {
                 my $match_start = $line =~ /^# \*/;
                 my $match_end   = $line =~ /\*$/;
+
                 if ($match_start && $match_end) {
-                    print $fh ON_RED "$line\n";
+                    print $fh ON_RED, $line, RESET, "\n";
                 }
                 elsif ($match_start) {
-                    print $fh ON_BLUE "$line\n";
+                    print $fh ON_BLUE, $line, RESET, "\n";
                 }
                 elsif ($match_end) {
-                    print $fh ON_GREEN "$line\n";
+                    print $fh ON_GREEN, $line, RESET, "\n";
                 }
                 else {
-                    print $fh "$line\n";
+                    print $fh $line, "\n";
                 }
             }
         },   
     );
 
     require Test::Differences;
-    Test::Differences::eq_or_diff($data1, $data2);
+    my $return = Test::Differences::eq_or_diff($data1, $data2);
     $override->restore();
+    return $return;
 }
 
 =head1 SEE ALSO
