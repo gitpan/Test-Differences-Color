@@ -13,11 +13,11 @@ Test::Differences::Color - colorize the result of Test::Differences
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-use version; our $VERSION = qv('0.03');
+use version; our $VERSION = qv('0.04');
 
 =head1 SYNOPSIS
 
@@ -43,21 +43,26 @@ sub eq_or_diff {
     my(undef, $file, $line_num) = caller;
 
     my $override = Sub::Override->new();
-    $override->replace('Test::Builder::_print_diag', 
+    $override->replace('Test::Builder::_print_to_fh', 
         sub {
-            my ($self, $msg)= @_;
+            my( $self, $fh, @msgs ) = @_;
 
-            local($\, $", $,) = (undef, ' ', '');
-            my $fh = $self->todo ? $self->todo_output : $self->failure_output;
+            # Prevent printing headers when only compiling.  Mostly for when
+            # tests are deparsed with B::Deparse
+            return if $^C;
 
+            my $msg = join '', @msgs;
 
-            my $type = $self->todo ? 'Fail (TODO)' : 'Failed';
+            local( $\, $", $, ) = ( undef, ' ', '' );
+
+            # Escape each line after the first with a # so we don't
+            # confuse Test::Harness.
+            $msg =~ s{\n(?!\z)}{\n# }sg;
+
+            # Stick a newline on the end if it needs it.
+            $msg .= "\n" unless $msg =~ /\n\z/;
+
             my @lines = split /\n/, $msg;
-
-            if ($msg =~ /Failed/) {
-                shift @lines;
-                unshift @lines, qq{# $type test at $file line $line_num.};
-            }
 
             foreach my $line (@lines) {
                 my $match_start = $line =~ /^# \*/;
@@ -76,6 +81,8 @@ sub eq_or_diff {
                     print $fh $line, "\n";
                 }
             }
+
+            return;
         },   
     );
 

@@ -8,7 +8,7 @@ WriteMakefile
           'EXE_FILES' => [],
           'VERSION_FROM' => 'lib/Test/Differences/Color.pm',
           'PREREQ_PM' => {
-                           'Test::More' => '0.8',
+                           'Test::More' => '0.86',
                            'Test::Differences' => '0.4801',
                            'Term::ANSIColor' => '1.12',
                            'version' => '0.76',

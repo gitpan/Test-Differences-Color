@@ -1,6 +1,6 @@
 ---
 name: Test-Differences-Color
-version: v0.03
+version: v0.04
 author:
   - 'Alec Chen <alec@cpan.org>'
 abstract: colorize the result of Test::Differences
@@ -12,12 +12,12 @@ build_requires:
   Sub::Override: 0.08
   Term::ANSIColor: 1.12
   Test::Differences: 0.4801
-  Test::More: 0.8
+  Test::More: 0.86
   version: 0.76
 provides:
   Test::Differences::Color:
     file: lib/Test/Differences/Color.pm
-    version: v0.03
+    version: v0.04
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
