@@ -13,11 +13,11 @@ Test::Differences::Color - colorize the result of Test::Differences
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-use version; our $VERSION = qv('0.04');
+our $VERSION = '0.05';
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,8 @@
 Revision history for Test-Differences-Color
 
+0.05    2009年09月08日 21時44分21秒
+        use Module::Install
+
 0.04    2009年02月06日 00時35分13秒 CST
         replace overrided subroutine from Test::Builder::_print_diag to Test::Builder::_print_to_fh
 
